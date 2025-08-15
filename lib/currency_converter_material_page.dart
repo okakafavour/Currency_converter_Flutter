@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 class CurrencyConverterMaterialPage extends StatelessWidget {
   const CurrencyConverterMaterialPage({super.key});
 
+
   @override 
   Widget build(BuildContext context){
-    final border = OutlineInputBorder(
 
+    double result = 0;
+    final TextEditingController textEditingController = TextEditingController();
+
+
+    final border = OutlineInputBorder(
       borderSide: const BorderSide(
         width: 2.0,
         style: BorderStyle.solid,
@@ -16,13 +21,24 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.blueGrey,
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        elevation: 0,
+        title: Text(
+          'Currency Converter', 
+          style: TextStyle(
+            color: Colors.white
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Center(
        child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-           '0',
-            style: TextStyle(
+           Text(
+           result.toString(),
+            style: const TextStyle(
                 fontSize: 55,
                fontWeight: FontWeight.bold,
                color: Color.fromARGB(225, 225, 225, 225),
@@ -32,6 +48,7 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10),
             child: TextField(
+              controller: textEditingController,
               style: const TextStyle(
                 color: Colors.black,
               ),
@@ -54,14 +71,11 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             ),
           ), 
           //button
-
-          // raised
-          // appeears like a text 
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: TextButton(
+            child: ElevatedButton(
               onPressed: () {
-                debugPrint('button clicked');
+               result = double.parse(textEditingController.text) * 81;
             }, 
             style:  TextButton.styleFrom(
                backgroundColor: Colors.black,
