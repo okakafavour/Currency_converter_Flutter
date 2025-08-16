@@ -15,10 +15,20 @@ extends State<CurrencyConverterMaterialPage>{
      double result = 0;
     final TextEditingController textEditingController = TextEditingController();
 
+    void convert() {
+      result = double.parse(textEditingController.text) * 80;
+      setState(() {});
+    }
+
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context){
-    print('rebuild');
     final border = OutlineInputBorder(
       borderSide: const BorderSide(
         width: 2.0,
@@ -45,7 +55,7 @@ extends State<CurrencyConverterMaterialPage>{
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
            Text(
-           result.toString(),
+           'Int ${result !=0 ? result.toStringAsFixed(3) : result.toStringAsFixed(0)}',
             style: const TextStyle(
                 fontSize: 55,
                fontWeight: FontWeight.bold,
@@ -82,12 +92,8 @@ extends State<CurrencyConverterMaterialPage>{
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: ElevatedButton(
-              onPressed: () {
-               setState(() {
-                result = double.parse(textEditingController.text) * 81;
-              });
-            }, 
-            style:  TextButton.styleFrom(
+              onPressed: convert,
+             style:  TextButton.styleFrom(
                backgroundColor: Colors.black,
               foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 50),
